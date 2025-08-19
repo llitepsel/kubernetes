@@ -1,0 +1,7 @@
+remoteWrite:
+  - url: "http://192.168.1.17:8428/api/v1/write"
+
+args:
+  - --promscrape.config=/etc/vmagent/config.yaml
+  - --remoteWrite.tmpDataPath=/tmp/vmagent-remotewrite-data
+  - --remoteWrite.maxDiskUsagePerURL=1GB

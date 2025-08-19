@@ -1,0 +1,12 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: k8s-components
+  namespace: monitoring
+spec:
+  endpoints:
+    - port: http-metrics
+      path: /metrics
+  selector:
+    matchLabels:
+      k8s-app: kube-state-metrics
