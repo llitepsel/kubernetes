@@ -1,0 +1,57 @@
+#kubectl -n teleport exec -i teleport-auth-5948b5c974-rwpl2 -- tctl create -f - < role.yaml
+#kubectl -n teleport exec -it teleport-auth-5948b5c974-rwpl2 -- tctl users add admin --roles=admin
+kind: role
+version: v7
+metadata:
+  name: admin
+spec:
+  allow:
+    logins: ['root', 'ubuntu', 'ec2-user', 'admin', 'teleport']
+    node_labels:
+      '*': '*'
+    kubernetes_labels:
+      '*': '*'
+    kubernetes_users: ['*']
+    kubernetes_groups: ['*']
+    kubernetes_resources:
+      - kind: '*'
+        namespace: '*'
+        name: '*'
+        verbs: ['*']
+    kubernetes_clusters: ['*']
+    db_labels:
+      '*': '*'
+    db_names: ['*']
+    db_users: ['*']
+    app_labels:
+      '*': '*'
+    app_roles: ['*']
+    windows_desktop_labels:
+      '*': '*'
+    windows_logins: ['Administrator', 'admin']
+
+    desktop_groups: ['*']
+
+    rules:
+      - resources: ['*']
+        verbs: ['*']
+  deny: {}
+  options:
+    cert_format: standard
+    create_db_user: true
+    create_desktop_user: true
+    desktop_clipboard: true
+    desktop_directory_sharing: true
+    enhanced_recording:
+    - command
+    - network
+    forward_agent: false
+    idp:
+      saml:
+        enabled: true
+    max_session_ttl: 30h0m0s
+    pin_source_ip: false
+    record_session:
+      default: best_effort
+      desktop: true
+    ssh_file_copy: true

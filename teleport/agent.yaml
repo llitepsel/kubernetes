@@ -1,0 +1,5 @@
+authToken: 
+proxyAddr: teleport.example.com:443
+kubeClusterName: mykube
+labels:
+    teleport.internal/resource-id: 

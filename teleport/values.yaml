@@ -1,0 +1,47 @@
+clusterName: teleport.example.com
+kubeClusterName: "mykube"
+proxyListenerMode: multiplex
+
+acme: false
+
+persistence:
+  enabled: true
+  volumeSize: 20Gi
+
+podSecurityPolicy:
+  enabled: false
+
+log:
+  level: INFO
+
+labels:
+  environment: production
+
+service:
+  type: ClusterIP
+
+tls:
+  existingSecretName: teleport-tls
+
+ingress:
+  enabled: true
+  useExisting: false
+  suppressAutomaticWildcards: true
+
+  hosts:
+    - host: teleport.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+  annotations:
+    ingress:
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+  extraLabels:
+    ingress:
+      app: teleport
+      environment: production
